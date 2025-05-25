@@ -2,6 +2,9 @@ import { useLocalStorageState } from "ahooks";
 import { FileImage, Info, Link, MapPinned } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
+import { URL_PARAMS_TO_CHECK } from "@/constants";
+import checkURLParams from "../helpers/checkURLParams";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -48,13 +51,21 @@ const STEPS: {
 ];
 
 const InfoMessage = () => {
+  const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
+
   const [firstVisit, setFirstVisit] = useLocalStorageState<string | undefined>(
     "point-and-pic-first-visit",
     {
       defaultValue: "true",
     },
   );
-  const [open, setOpen] = useState(() => firstVisit === "true");
+  const [open, setOpen] = useState(() => {
+    if (firstVisit === "true" && !urlParamsExists) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   const onClose = () => {
     setFirstVisit("false");
@@ -67,14 +78,16 @@ const InfoMessage = () => {
 
   return (
     <>
-      <Button
-        size="icon"
-        variant="ghost"
-        className="absolute top-1 right-1"
-        onClick={onOpen}
-      >
-        <Info />
-      </Button>
+      {!urlParamsExists && (
+        <Button
+          size="icon"
+          variant="ghost"
+          className="absolute top-1 right-1"
+          onClick={onOpen}
+        >
+          <Info />
+        </Button>
+      )}
 
       <Dialog open={open} onOpenChange={onClose}>
         <DialogContent
@@ -128,7 +141,7 @@ const InfoMessage = () => {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button onClick={onClose}>Start using</Button>
+              <Button onClick={onClose}>Understood</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>
