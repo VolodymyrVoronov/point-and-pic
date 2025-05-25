@@ -1,8 +1,8 @@
 import { useLocalStorageState } from "ahooks";
-import { FileImage, Info, Link, MapPinned } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { Info } from "lucide-react";
+import { useState } from "react";
 
-import { URL_PARAMS_TO_CHECK } from "@/constants";
+import { STEPS, URL_PARAMS_TO_CHECK } from "@/constants";
 import checkURLParams from "../helpers/checkURLParams";
 
 import { Badge } from "@/components/ui/badge";
@@ -23,32 +23,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-
-const STEPS: {
-  id: number;
-  step: string;
-  description: string;
-  icon: ReactNode;
-}[] = [
-  {
-    id: 1,
-    step: "Step 1",
-    description: "Select place on the map you want to mark and share.",
-    icon: <MapPinned size={50} />,
-  },
-  {
-    id: 2,
-    step: "Step 2",
-    description: "Upload  or make a photo of the place.",
-    icon: <FileImage size={50} />,
-  },
-  {
-    id: 3,
-    step: "Step 3",
-    description: "Share the link with your friends.",
-    icon: <Link size={50} />,
-  },
-];
 
 const InfoMessage = () => {
   const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
