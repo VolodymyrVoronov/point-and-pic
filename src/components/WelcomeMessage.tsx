@@ -75,6 +75,7 @@ const WelcomeMessage = () => {
       >
         <Info />
       </Button>
+
       <Dialog open={open} onOpenChange={onClose}>
         <DialogContent
           style={{
