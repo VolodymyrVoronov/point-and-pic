@@ -86,7 +86,7 @@ const WelcomeMessage = () => {
             <DialogTitle className="text-center">
               Welcome to Point & Pic
             </DialogTitle>
-            <DialogDescription className="flex flex-col gap-2 text-center">
+            <DialogDescription className="flex flex-col gap-2 text-center text-balance">
               <span>
                 With this application, you can easily create and share
                 coordinates and photo with your friends.
