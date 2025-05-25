@@ -19,6 +19,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const STEPS: {
   id: number;
@@ -80,9 +81,11 @@ const WelcomeMessage = () => {
             maxWidth: "768px",
           }}
         >
-          <DialogHeader>
-            <DialogTitle>Welcome to Point & Pic</DialogTitle>
-            <DialogDescription className="flex flex-col gap-2">
+          <DialogHeader className="space-y-2">
+            <DialogTitle className="text-center">
+              Welcome to Point & Pic
+            </DialogTitle>
+            <DialogDescription className="flex flex-col gap-2 text-center">
               <span>
                 With this application, you can easily create and share
                 coordinates and image with your friends.
@@ -91,14 +94,18 @@ const WelcomeMessage = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             {STEPS.map((step) => (
               <Card key={step.id}>
-                <CardHeader>
-                  <CardTitle>{step.step}</CardTitle>
-                  <CardDescription>{step.description}</CardDescription>
+                <CardHeader className="space-y-2">
+                  <CardTitle className="flex justify-center">
+                    <Badge className="text-md px-2 py-1.5">{step.step}</Badge>
+                  </CardTitle>
+                  <CardDescription className="text-center">
+                    {step.description}
+                  </CardDescription>
                   <CardContent className="px-0">
-                    <div className="text-muted-foreground flex w-full">
+                    <div className="text-l text-primary flex w-full justify-center">
                       {step.icon}
                     </div>
                   </CardContent>
@@ -107,14 +114,16 @@ const WelcomeMessage = () => {
             ))}
           </div>
 
-          <small className="text-center text-balance">
-            No registration is required. No tracking is used. All happens in
-            your browser.
-          </small>
-          <small className="text-center text-balance">
-            The location and image are stored in link. As soon as a link is lost
-            or the browser is closed, the data is deleted.
-          </small>
+          <div className="text-muted-foreground flex flex-col justify-center gap-1.5">
+            <small className="text-center text-balance">
+              No registration is required. No tracking is used. All happens in
+              your browser.
+            </small>
+            <small className="text-center text-balance">
+              The location and image are stored in link. As soon as a link is
+              lost or the browser is closed, the data is deleted.
+            </small>
+          </div>
 
           <DialogFooter>
             <DialogClose asChild>
