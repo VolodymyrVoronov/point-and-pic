@@ -1,9 +1,9 @@
-import WelcomeMessage from "./components/WelcomeMessage";
+import InfoMessage from "./components/InfoMessage";
 
 function App() {
   return (
     <>
-      <WelcomeMessage />
+      <InfoMessage />
     </>
   );
 }

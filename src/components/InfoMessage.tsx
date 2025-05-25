@@ -47,7 +47,7 @@ const STEPS: {
   },
 ];
 
-const WelcomeMessage = () => {
+const InfoMessage = () => {
   const [firstVisit, setFirstVisit] = useLocalStorageState<string | undefined>(
     "point-and-pic-first-visit",
     {
@@ -137,4 +137,4 @@ const WelcomeMessage = () => {
   );
 };
 
-export default WelcomeMessage;
+export default InfoMessage;
