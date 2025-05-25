@@ -1,12 +1,11 @@
-import { Button } from "./components/ui/button";
+import WelcomeMessage from "./components/WelcomeMessage";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      <Button>Click me</Button>
-    </div>
+    <>
+      <WelcomeMessage />
+    </>
   );
 }
 
 export default App;
-
