@@ -2,6 +2,7 @@ import { useLocalStorageState } from "ahooks";
 import { FileImage, Info, Link, MapPinned } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -19,7 +20,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const STEPS: {
   id: number;
