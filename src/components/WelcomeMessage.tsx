@@ -36,7 +36,7 @@ const STEPS: {
   {
     id: 2,
     step: "Step 2",
-    description: "Upload image or make a photo of the place.",
+    description: "Upload  or make a photo of the place.",
     icon: <FileImage size={50} />,
   },
   {
@@ -89,7 +89,7 @@ const WelcomeMessage = () => {
             <DialogDescription className="flex flex-col gap-2 text-center">
               <span>
                 With this application, you can easily create and share
-                coordinates and image with your friends.
+                coordinates and photo with your friends.
               </span>
               <strong>See, how it works:</strong>
             </DialogDescription>
@@ -121,7 +121,7 @@ const WelcomeMessage = () => {
               your browser.
             </small>
             <small className="text-center text-balance">
-              The location and image are stored in link. As soon as a link is
+              The location and photo are stored in link. As soon as a link is
               lost or the browser is closed, the data is deleted.
             </small>
           </div>
