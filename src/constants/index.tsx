@@ -28,3 +28,5 @@ export const STEPS: {
     icon: <Link size={50} />,
   },
 ];
+
+export const BASE45_CHARSET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
