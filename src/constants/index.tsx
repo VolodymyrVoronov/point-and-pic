@@ -18,7 +18,7 @@ export const STEPS: {
   {
     id: 2,
     step: "Step 2",
-    description: "Upload  or make a photo of the place.",
+    description: "Upload   a photo of the place.",
     icon: <FileImage size={50} />,
   },
   {

@@ -58,6 +58,9 @@ const InfoMessage = () => {
           variant="ghost"
           className="absolute top-1 right-1"
           onClick={onOpen}
+          style={{
+            zIndex: 9999,
+          }}
         >
           <Info />
         </Button>
@@ -67,6 +70,7 @@ const InfoMessage = () => {
         <DialogContent
           style={{
             maxWidth: "768px",
+            zIndex: 9999,
           }}
         >
           <DialogHeader className="space-y-2">
