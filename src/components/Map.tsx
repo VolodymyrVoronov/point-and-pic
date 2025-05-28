@@ -27,8 +27,6 @@ interface LeafletEventHandlerFnMap {
 const Map = () => {
   const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
 
-  console.log("urlParamsExists", urlParamsExists);
-
   const [sharedData, setSharedData] = useState<{
     lat: number;
     lng: number;
@@ -67,8 +65,6 @@ const Map = () => {
 
   function DetectClick() {
     useMapEvent("click", (e: LeafletEventHandlerFnMap) => {
-      console.log(e.latlng);
-
       setSharedData({
         ...sharedData!,
         lat: e.latlng.lat,
