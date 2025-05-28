@@ -36,6 +36,7 @@ const GenerateURL = ({ sharedData, file }: IGenerateURLProps) => {
 
   const onCopyClick = () => {
     setCopying(true);
+
     if (textToCopy) copy(textToCopy);
 
     const timeId = setTimeout(() => {
