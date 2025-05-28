@@ -75,7 +75,8 @@ const InfoMessage = () => {
         >
           <DialogHeader className="space-y-2">
             <DialogTitle className="text-center">
-              Welcome to Point & Pic
+              {firstVisit === "true" && "Welcome to "}
+              Point & Pic
             </DialogTitle>
             <DialogDescription className="flex flex-col gap-2 text-center text-balance">
               <span>
