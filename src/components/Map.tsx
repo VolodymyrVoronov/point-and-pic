@@ -10,7 +10,7 @@ import {
 
 import "leaflet/dist/leaflet.css";
 
-import { URL_PARAMS_TO_CHECK } from "@/constants";
+import { DEFAULT_LAT_LNG, URL_PARAMS_TO_CHECK } from "@/constants";
 import checkURLParams from "@/helpers/checkURLParams";
 import generateShareUrl from "@/helpers/generateShareUrl";
 import parseSharedDataFromFragment from "@/helpers/parseSharedDataFromFragment";
@@ -77,14 +77,15 @@ const Map = () => {
     return null;
   }
 
-  console.log(sharedData);
-
   return (
     <div className="relative flex h-full w-full flex-1">
       <MapContainer
         className="h-full w-full"
         // @ts-expect-error @types/react-leaflet is not up to date
-        center={[sharedData?.lat ?? 51.505, sharedData?.lng ?? -0.09]}
+        center={[
+          sharedData?.lat ?? DEFAULT_LAT_LNG.lat,
+          sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
+        ]}
         zoom={13}
       >
         <TileLayer
@@ -93,12 +94,34 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker
-          key={"test"}
-          position={[sharedData?.lat ?? 51.505, sharedData?.lng ?? -0.09]}
+          eventHandlers={{
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            add: (e: any) => e.target.openPopup(),
+          }}
+          key="shared-data-marker"
+          position={[
+            sharedData?.lat ?? DEFAULT_LAT_LNG.lat,
+            sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
+          ]}
         >
-          <Popup>
+          {/* @ts-expect-error @types/react-leaflet is not up to date */}
+          <Popup closeButton={false} autoClose={false} closeOnClick={false}>
             {urlParamsExists ? (
-              <>Test</>
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col items-center justify-center gap-1">
+                  <span className="text-center">Coordinates:</span>
+                  <span className="font-bold">
+                    {sharedData?.lat}, {sharedData?.lng}
+                  </span>
+                </div>
+
+                {sharedData?.pic ? (
+                  <img
+                    src={URL.createObjectURL(sharedData.pic)}
+                    alt="Image preview"
+                  />
+                ) : null}
+              </div>
             ) : (
               <div className="flex flex-col gap-4">
                 <ImageUploader
@@ -127,7 +150,10 @@ const Map = () => {
         </Marker>
 
         <ChangeCenter
-          position={[sharedData?.lat ?? 51.505, sharedData?.lng ?? -0.09]}
+          position={[
+            sharedData?.lat ?? 51.505,
+            sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
+          ]}
         />
         <DetectClick />
       </MapContainer>

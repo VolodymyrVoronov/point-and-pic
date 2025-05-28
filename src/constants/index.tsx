@@ -3,6 +3,11 @@ import { type ReactNode } from "react";
 
 export const URL_PARAMS_TO_CHECK = ["lat", "lng", "pic"];
 
+export const DEFAULT_LAT_LNG = {
+  lat: 51.505,
+  lng: -0.09,
+};
+
 export const STEPS: {
   id: number;
   step: string;
