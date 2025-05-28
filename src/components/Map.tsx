@@ -12,10 +12,11 @@ import "leaflet/dist/leaflet.css";
 
 import { DEFAULT_LAT_LNG, URL_PARAMS_TO_CHECK } from "@/constants";
 import checkURLParams from "@/helpers/checkURLParams";
-import generateShareUrl from "@/helpers/generateShareUrl";
 import parseSharedDataFromFragment from "@/helpers/parseSharedDataFromFragment";
 
 import ImageUploader from "./ImageUploader";
+import GenerateURL from "./GenerateURL";
+import { Button } from "./ui/button";
 
 interface LeafletEventHandlerFnMap {
   latlng: {
@@ -36,8 +37,13 @@ const Map = () => {
   } | null>(() => {
     if (urlParamsExists) return parseSharedDataFromFragment()!;
 
-    return null;
+    return {
+      lat: DEFAULT_LAT_LNG.lat,
+      lng: DEFAULT_LAT_LNG.lng,
+      pic: null,
+    };
   });
+  const [fileToUpload, setFileToUpload] = useState<File | null>(null);
 
   const uploadImage = (file: File) => {
     if (!file) return;
@@ -48,6 +54,8 @@ const Map = () => {
       ...sharedData!,
       pic: blob,
     });
+
+    setFileToUpload(blob);
 
     // const shareUrl = await generateShareUrl(
     //   e.target.files[0],
@@ -61,6 +69,16 @@ const Map = () => {
       ...sharedData!,
       pic: null,
     });
+    setFileToUpload(null);
+  };
+
+  const onResetClick = () => {
+    setSharedData({
+      lat: DEFAULT_LAT_LNG.lat,
+      lng: DEFAULT_LAT_LNG.lng,
+      pic: null,
+    });
+    setFileToUpload(null);
   };
 
   function DetectClick() {
@@ -94,11 +112,11 @@ const Map = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker
+          key="shared-data-marker"
           eventHandlers={{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             add: (e: any) => e.target.openPopup(),
           }}
-          key="shared-data-marker"
           position={[
             sharedData?.lat ?? DEFAULT_LAT_LNG.lat,
             sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
@@ -144,6 +162,18 @@ const Map = () => {
                     </span>
                   </div>
                 ) : null}
+
+                {sharedData && (
+                  <GenerateURL sharedData={sharedData} file={fileToUpload}>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={onResetClick}
+                    >
+                      Reset
+                    </Button>
+                  </GenerateURL>
+                )}
               </div>
             )}
           </Popup>
@@ -155,7 +185,7 @@ const Map = () => {
             sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
           ]}
         />
-        <DetectClick />
+        {urlParamsExists ? null : <DetectClick />}
       </MapContainer>
     </div>
   );
