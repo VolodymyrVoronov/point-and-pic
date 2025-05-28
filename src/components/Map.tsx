@@ -84,7 +84,7 @@ const Map = () => {
           sharedData?.lat ?? DEFAULT_LAT_LNG.lat,
           sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
         ]}
-        zoom={13}
+        zoom={urlParamsExists ? 100 : 13}
       >
         <TileLayer
           // @ts-expect-error @types/react-leaflet is not up to date
