@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { useCopyToClipboard } from "usehooks-ts";
 
 import generateShareUrl from "@/helpers/generateShareUrl";
@@ -12,18 +12,21 @@ interface IGenerateURLProps {
     pic?: Blob | null;
   };
   file: File | null;
-  children?: ReactNode;
 }
 
-const GenerateURL = ({ sharedData, file, children }: IGenerateURLProps) => {
-  const { lat, lng, pic } = sharedData!;
+const GenerateURL = ({ sharedData, file }: IGenerateURLProps) => {
+  const { lat, lng } = sharedData!;
 
   const [showCopyToClipboardButton, setShowCopyToClipboardButton] =
     useState(false);
   const [textToCopy, setTextToCopy] = useState("");
-  const [copiedText, copy] = useCopyToClipboard();
+  const [, copy] = useCopyToClipboard();
+  const [copying, setCopying] = useState(false);
 
   const onGenerateClick = async () => {
+    copy("");
+    setTextToCopy("");
+
     const shareUrl = await generateShareUrl(file!, lat, lng);
 
     if (shareUrl) setTextToCopy(shareUrl);
@@ -31,7 +34,17 @@ const GenerateURL = ({ sharedData, file, children }: IGenerateURLProps) => {
     setShowCopyToClipboardButton(true);
   };
 
-  const onCopyClick = () => copy(textToCopy);
+  const onCopyClick = () => {
+    setCopying(true);
+    if (textToCopy) copy(textToCopy);
+
+    const timeId = setTimeout(() => {
+      setCopying(false);
+      setTextToCopy("");
+
+      clearTimeout(timeId);
+    }, 2000);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -52,11 +65,9 @@ const GenerateURL = ({ sharedData, file, children }: IGenerateURLProps) => {
           size="sm"
           variant="secondary"
         >
-          <span>{copiedText ? "Copied!" : "Copy"}</span>
+          <span>{copying ? "Copied!" : "Copy"}</span>
         </Button>
       ) : null}
-
-      {pic && showCopyToClipboardButton && textToCopy ? children : null}
     </div>
   );
 };

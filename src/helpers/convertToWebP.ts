@@ -3,7 +3,7 @@ async function convertToWebP(file: File): Promise<Blob> {
     const img = new Image();
 
     img.onload = () => {
-      const targetWidth = 768;
+      const targetWidth = 480;
       const targetHeight = 480;
 
       const srcAspect = img.width / img.height;
