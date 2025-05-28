@@ -124,58 +124,60 @@ const Map = () => {
         >
           {/* @ts-expect-error @types/react-leaflet is not up to date */}
           <Popup closeButton={false} autoClose={false} closeOnClick={false}>
-            {urlParamsExists ? (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col items-center justify-center gap-1">
-                  <span className="text-center">Coordinates:</span>
-                  <span className="font-bold">
-                    {sharedData?.lat}, {sharedData?.lng}
-                  </span>
-                </div>
-
-                {sharedData?.pic ? (
-                  <img
-                    src={URL.createObjectURL(sharedData.pic)}
-                    alt="Image preview"
-                  />
-                ) : null}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                <ImageUploader
-                  onFileChange={uploadImage}
-                  onDelete={deleteImage}
-                />
-
-                {sharedData?.pic ? (
-                  <img
-                    src={URL.createObjectURL(sharedData.pic)}
-                    alt="Image preview"
-                  />
-                ) : null}
-
-                {sharedData?.lat && sharedData?.lng ? (
+            <div className="min-h-[300px] min-w-[300px]">
+              {urlParamsExists ? (
+                <div className="flex flex-col gap-4">
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="text-center">Coordinates:</span>
                     <span className="font-bold">
                       {sharedData?.lat}, {sharedData?.lng}
                     </span>
                   </div>
-                ) : null}
 
-                {sharedData && (
-                  <GenerateURL sharedData={sharedData} file={fileToUpload}>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={onResetClick}
-                    >
-                      Reset
-                    </Button>
-                  </GenerateURL>
-                )}
-              </div>
-            )}
+                  {sharedData?.pic ? (
+                    <img
+                      src={URL.createObjectURL(sharedData.pic)}
+                      alt="Image preview"
+                    />
+                  ) : null}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  <ImageUploader
+                    onFileChange={uploadImage}
+                    onDelete={deleteImage}
+                  />
+
+                  {sharedData?.pic ? (
+                    <img
+                      src={URL.createObjectURL(sharedData.pic)}
+                      alt="Image preview"
+                    />
+                  ) : null}
+
+                  {sharedData?.lat && sharedData?.lng ? (
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <span className="text-center">Coordinates:</span>
+                      <span className="font-bold">
+                        {sharedData?.lat}, {sharedData?.lng}
+                      </span>
+                    </div>
+                  ) : null}
+
+                  {sharedData && (
+                    <GenerateURL sharedData={sharedData} file={fileToUpload}>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={onResetClick}
+                      >
+                        Reset
+                      </Button>
+                    </GenerateURL>
+                  )}
+                </div>
+              )}
+            </div>
           </Popup>
         </Marker>
 
