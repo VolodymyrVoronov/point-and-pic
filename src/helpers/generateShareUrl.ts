@@ -17,7 +17,7 @@ async function generateShareUrl(
     lng: lng.toFixed(6),
   }).toString();
 
-  return `${window.location.href}/#${fragment}`;
+  return `${window.location.href}#${fragment}`;
 }
 
 export default generateShareUrl;
