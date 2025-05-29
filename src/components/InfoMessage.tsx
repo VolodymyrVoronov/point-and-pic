@@ -1,8 +1,8 @@
-import { useLocalStorageState } from "ahooks";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
 import { STEPS, URL_PARAMS_TO_CHECK } from "@/constants";
+import useFirstVisit from "@/hooks/useFirstVisit";
 import checkURLParams from "../helpers/checkURLParams";
 
 import { Badge } from "@/components/ui/badge";
@@ -27,14 +27,9 @@ import { Button } from "./ui/button";
 const InfoMessage = () => {
   const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
 
-  const [firstVisit, setFirstVisit] = useLocalStorageState<string | undefined>(
-    "point-and-pic-first-visit",
-    {
-      defaultValue: "true",
-    },
-  );
+  const { isFirstVisit, setFirstVisit } = useFirstVisit();
   const [open, setOpen] = useState(() => {
-    if (firstVisit === "true" && !urlParamsExists) {
+    if (isFirstVisit && !urlParamsExists) {
       return true;
     } else {
       return false;
@@ -75,7 +70,7 @@ const InfoMessage = () => {
         >
           <DialogHeader className="space-y-2">
             <DialogTitle className="text-center">
-              {firstVisit === "true" && "Welcome to "}
+              {isFirstVisit && "Welcome to "}
               Point & Pic
             </DialogTitle>
             <DialogDescription className="flex flex-col gap-2 text-center text-balance">
