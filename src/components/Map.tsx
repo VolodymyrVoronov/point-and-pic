@@ -16,6 +16,7 @@ import useViewMode from "@/hooks/useViewMode";
 
 import GenerateURL from "./GenerateURL";
 import ImageUploader from "./ImageUploader";
+import ImageView from "./ImageView";
 
 interface LeafletEventHandlerFnMap {
   latlng: {
@@ -114,12 +115,7 @@ const Map = () => {
                   </span>
                 </div>
 
-                {sharedData?.pic ? (
-                  <img
-                    src={URL.createObjectURL(sharedData.pic)}
-                    alt="Image preview"
-                  />
-                ) : null}
+                <ImageView pic={sharedData?.pic} />
               </div>
             ) : (
               <div className="flex flex-col gap-4">
@@ -128,12 +124,7 @@ const Map = () => {
                   onDelete={deleteImage}
                 />
 
-                {sharedData?.pic ? (
-                  <img
-                    src={URL.createObjectURL(sharedData.pic)}
-                    alt="Image preview"
-                  />
-                ) : null}
+                <ImageView pic={sharedData?.pic} />
 
                 {sharedData?.lat && sharedData?.lng ? (
                   <div className="flex flex-col items-center justify-center gap-1">
