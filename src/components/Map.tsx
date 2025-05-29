@@ -120,8 +120,8 @@ const Map = () => {
             ) : (
               <div className="flex flex-col gap-4">
                 <ImageUploader
-                  onFileChange={uploadImage}
-                  onDelete={deleteImage}
+                  fileChangeHandler={uploadImage}
+                  deleteHandler={deleteImage}
                 />
 
                 <ImageView pic={sharedData?.pic} />

@@ -7,11 +7,14 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import { Button } from "./ui/button";
 
 interface ImageUploaderProps {
-  onFileChange: (files: File) => void;
-  onDelete?: () => void;
+  fileChangeHandler: (files: File) => void;
+  deleteHandler?: () => void;
 }
 
-const ImageUploader = ({ onFileChange, onDelete }: ImageUploaderProps) => {
+const ImageUploader = ({
+  fileChangeHandler,
+  deleteHandler,
+}: ImageUploaderProps) => {
   const [{ files }, { removeFile, openFileDialog, getInputProps }] =
     useFileUpload({
       accept: "image/*",
@@ -19,7 +22,7 @@ const ImageUploader = ({ onFileChange, onDelete }: ImageUploaderProps) => {
 
   useEffect(() => {
     if (files.length > 0) {
-      onFileChange(files[0].file as File);
+      fileChangeHandler(files[0].file as File);
     }
   }, [files, openFileDialog]);
 
@@ -71,7 +74,7 @@ const ImageUploader = ({ onFileChange, onDelete }: ImageUploaderProps) => {
               e.stopPropagation();
 
               removeFile(files[0]?.id);
-              onDelete?.();
+              deleteHandler?.();
             }}
             className="font-medium"
             aria-label={`Remove ${fileName}`}
