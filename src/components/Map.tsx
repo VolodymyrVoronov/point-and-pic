@@ -10,9 +10,9 @@ import {
 
 import "leaflet/dist/leaflet.css";
 
-import { DEFAULT_LAT_LNG, URL_PARAMS_TO_CHECK } from "@/constants";
-import checkURLParams from "@/helpers/checkURLParams";
+import { DEFAULT_LAT_LNG } from "@/constants";
 import parseSharedDataFromFragment from "@/helpers/parseSharedDataFromFragment";
+import useViewMode from "@/hooks/useViewMode";
 
 import GenerateURL from "./GenerateURL";
 import ImageUploader from "./ImageUploader";
@@ -25,14 +25,13 @@ interface LeafletEventHandlerFnMap {
 }
 
 const Map = () => {
-  const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
-
+  const { viewMode } = useViewMode();
   const [sharedData, setSharedData] = useState<{
     lat: number;
     lng: number;
     pic: Blob | null;
   } | null>(() => {
-    if (urlParamsExists) return parseSharedDataFromFragment()!;
+    if (viewMode) return parseSharedDataFromFragment()!;
 
     return {
       lat: DEFAULT_LAT_LNG.lat,
@@ -84,7 +83,7 @@ const Map = () => {
           sharedData?.lat ?? DEFAULT_LAT_LNG.lat,
           sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
         ]}
-        zoom={urlParamsExists ? 100 : 13}
+        zoom={viewMode ? 100 : 13}
       >
         <TileLayer
           // @ts-expect-error @types/react-leaflet is not up to date
@@ -104,7 +103,7 @@ const Map = () => {
         >
           {/* @ts-expect-error @types/react-leaflet is not up to date */}
           <Popup closeButton={false} autoClose={false} closeOnClick={false}>
-            {urlParamsExists ? (
+            {viewMode ? (
               <div className="flex min-h-[300px] min-w-[300px] flex-col gap-4">
                 <div className="flex flex-col items-center justify-center gap-1">
                   <span className="text-center font-bold">
@@ -159,7 +158,7 @@ const Map = () => {
             sharedData?.lng ?? DEFAULT_LAT_LNG.lng,
           ]}
         />
-        {urlParamsExists ? null : <DetectClick />}
+        {viewMode ? null : <DetectClick />}
       </MapContainer>
     </div>
   );

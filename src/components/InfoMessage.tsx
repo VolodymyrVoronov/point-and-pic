@@ -1,9 +1,9 @@
 import { Info } from "lucide-react";
 import { useState } from "react";
 
-import { STEPS, URL_PARAMS_TO_CHECK } from "@/constants";
+import { STEPS } from "@/constants";
 import useFirstVisit from "@/hooks/useFirstVisit";
-import checkURLParams from "../helpers/checkURLParams";
+import useViewMode from "@/hooks/useViewMode";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -25,11 +25,10 @@ import {
 import { Button } from "./ui/button";
 
 const InfoMessage = () => {
-  const urlParamsExists = checkURLParams(URL_PARAMS_TO_CHECK);
-
+  const { viewMode } = useViewMode();
   const { isFirstVisit, setFirstVisit } = useFirstVisit();
   const [open, setOpen] = useState(() => {
-    if (isFirstVisit && !urlParamsExists) {
+    if (isFirstVisit && !viewMode) {
       return true;
     } else {
       return false;
@@ -47,7 +46,7 @@ const InfoMessage = () => {
 
   return (
     <>
-      {!urlParamsExists && (
+      {!viewMode && (
         <Button
           size="icon"
           variant="ghost"
