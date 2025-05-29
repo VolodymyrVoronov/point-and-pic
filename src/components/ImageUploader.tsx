@@ -1,4 +1,5 @@
-import { CircleUserRoundIcon } from "lucide-react";
+import { ImageIcon } from "lucide-react";
+
 import { useEffect } from "react";
 
 import { useFileUpload } from "@/hooks/useFileUpload";
@@ -44,7 +45,7 @@ const ImageUploader = ({ onFileChange, onDelete }: ImageUploaderProps) => {
             />
           ) : (
             <div aria-hidden="true">
-              <CircleUserRoundIcon className="opacity-60" size={16} />
+              <ImageIcon className="opacity-60" size={16} />
             </div>
           )}
         </div>

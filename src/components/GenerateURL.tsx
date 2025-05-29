@@ -4,6 +4,7 @@ import { useCopyToClipboard } from "usehooks-ts";
 import generateShareUrl from "@/helpers/generateShareUrl";
 
 import { Button } from "./ui/button";
+import { Link } from "lucide-react";
 
 interface IGenerateURLProps {
   sharedData: {
@@ -60,13 +61,9 @@ const GenerateURL = ({ sharedData, file }: IGenerateURLProps) => {
       </Button>
 
       {sharedData && file && showCopyToClipboardButton && textToCopy ? (
-        <Button
-          onClick={onCopyClick}
-          className="w-full"
-          size="sm"
-          variant="secondary"
-        >
+        <Button onClick={onCopyClick} className="w-full" size="sm">
           <span>{copying ? "Copied!" : "Copy"}</span>
+          <Link className="size-3.5" />
         </Button>
       ) : null}
     </div>
