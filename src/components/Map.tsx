@@ -8,8 +8,6 @@ import {
   useMapEvent,
 } from "react-leaflet";
 
-import "leaflet/dist/leaflet.css";
-
 import { DEFAULT_LAT_LNG } from "@/constants";
 import parseSharedDataFromFragment from "@/helpers/parseSharedDataFromFragment";
 import useViewMode from "@/hooks/useViewMode";
