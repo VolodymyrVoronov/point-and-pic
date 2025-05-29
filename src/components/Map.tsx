@@ -125,6 +125,8 @@ const Map = () => {
                   deleteHandler={deleteImage}
                 />
 
+                <ImageView pic={sharedData?.pic} />
+
                 {sharedData?.pic ? (
                   <Badge
                     className="self-center text-center text-sm text-balance whitespace-normal"
@@ -134,8 +136,6 @@ const Map = () => {
                     sharing!
                   </Badge>
                 ) : null}
-
-                <ImageView pic={sharedData?.pic} />
 
                 {sharedData?.lat && sharedData?.lng ? (
                   <div className="flex flex-col items-center justify-center gap-1">
