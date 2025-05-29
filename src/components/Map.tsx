@@ -17,6 +17,7 @@ import useViewMode from "@/hooks/useViewMode";
 import GenerateURL from "./GenerateURL";
 import ImageUploader from "./ImageUploader";
 import ImageView from "./ImageView";
+import { Badge } from "@/components/ui/badge";
 
 interface LeafletEventHandlerFnMap {
   latlng: {
@@ -108,7 +109,7 @@ const Map = () => {
               <div className="flex min-h-[300px] min-w-[300px] flex-col gap-4">
                 <div className="flex flex-col items-center justify-center gap-1">
                   <span className="text-center font-bold">
-                    Your place is here:
+                    Your place is here (lat/lng):
                   </span>
                   <span className="text-lg font-bold">
                     {sharedData?.lat}, {sharedData?.lng}
@@ -123,6 +124,16 @@ const Map = () => {
                   fileChangeHandler={uploadImage}
                   deleteHandler={deleteImage}
                 />
+
+                {sharedData?.pic ? (
+                  <Badge
+                    className="self-center text-center text-sm text-balance whitespace-normal"
+                    variant="destructive"
+                  >
+                    Please note: your image will be optimized and cropped for
+                    sharing!
+                  </Badge>
+                ) : null}
 
                 <ImageView pic={sharedData?.pic} />
 

@@ -35,7 +35,7 @@ const ImageUploader = ({
         <div
           className="border-input relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border"
           aria-label={
-            previewUrl ? "Preview of uploaded image" : "Default user avatar"
+            previewUrl ? "Preview of uploaded image" : "Default image preview"
           }
         >
           {previewUrl ? (
