@@ -49,7 +49,6 @@ const InfoMessage = () => {
       {!viewMode && (
         <Button
           size="icon"
-          variant="ghost"
           className="absolute top-1 right-1"
           onClick={onOpen}
           style={{
